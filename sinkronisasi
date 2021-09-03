@@ -2,22 +2,17 @@
 
 cd /tmp/rom
 
-repo init -q --no-repo-verify --depth=1 -u https://github.com/NusantaraProject-ROM/android_manifest -b 11 -g default,-device,-mips,-darwin,-notdefault
+# sync
+repo init -q --no-repo-verify --depth=1 -u git://github.com/DerpFest-11/manifest.git -b 11 -g default,-device,-mips,-darwin,-notdefault
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
-# DT/VT/KT
-git clone https://github.com/MiBengal-Development/Device_xiaomi_J -b Trying device/xiaomi/juice
-git clone --depth=1 https://github.com/I-n-o-k/vendor_xiaomi_juice --single-branch -b 11 vendor/xiaomi/juice
-git clone --depth=1 https://github.com/I-n-o-k/android_kernel_xiaomi_bengal --single-branch -b 11.0 kernel/xiaomi/juice
+# Trees
+git clone --depth=1 https://github.com/indraadp/device_xiaomi_juice -b derpfest device/xiaomi/juice
+git clone --depth=1 https://github.com/indraadp/prebuilt_vendor_juice --single-branch -b A11 vendor/xiaomi/juice
+git clone --depth=1 https://github.com/indraadp/stormbreaker_kernel_juice --single-branch -b test kernel/xiaomi/juice
 
-# TOOLCHAIN
-git clone --depth=1 https://github.com/kdrag0n/proton-clang --single-branch -b master prebuilts/clang/host/linux-x86/clang-proton
+# Remove stuff
+rm -rf prebuilts/gcc/linux-x86/aarch64/aarch64-elf && rm -rf device/generic
 
-#HALS
-rm -rf hardware/qcom-caf/sm8250/audio
-rm -rf hardware/qcom-caf/sm8250/display
-rm -rf hardware/qcom-caf/sm8250/media
-git clone --depth=1 https://github.com/sm6115-dev/hardware_qcom-caf_sm8250_audio.git hardware/qcom-caf/sm8250/audio
-git clone --depth=1 https://github.com/sm6115-dev/hardware_qcom-caf_sm8250_display hardware/qcom-caf/sm8250/display
-git clone --depth=1 https://github.com/sm6115-dev/hardware_qcom-caf_sm8250_media hardware/qcom-caf/sm8250/media
-
+# toolchain
+git clone https://github.com/indraadp/arm64-gcc-11 prebuilts/gcc/linux-x86/aarch64/aarch64-elf
