@@ -1,10 +1,10 @@
 env:
-    token_telegram: "ENCRYPTED[ef57f747d32c7145cad73cba52ab20330068ae5dcc6510a4c762bbbbac14881a135bda5689f4dbe75a30c39c18a3b8a4]"
-    id_telegram: "ENCRYPTED[6f7afb813a6757a3ff95e1a90557ae57b3aed00a6af9860d7616c94c3bf2b390dedc23c8075bcc4adb14b8f1933ce49c]"
-    rclone_config: "ENCRYPTED[81f2ea42a1bb72f5514f01604e25bb9057eb0b6f1b0f5a18434dd7175df07619a880e75ecb9597e10e69fba44553fe84]"
+    token_telegram: "ENCRYPTED[1c93d2fc5120b1bc4e4c22881857145aca9fcf047735a11cca4d602b7372c01c6a8f5e9663fcb732ff8d4cb44787a8ec]"
+    id_telegram: "ENCRYPTED[5c057df3fef290e80e278e996ecd4992ade3caf260c0a048c09fa2b04a03623bccf49f6d043d878ab6ee4b68c8ae96a5]"
+    rclone_config: "ENCRYPTED[77edbce3e69b5ec935f81fd1c48a21895a5eadde5586d6ef1af12f892ce0510418d199485bc6919b57a640c34e514328]"
 
 task:
-    name: nusantara
+    name: DerpFestOS juice
     timeout_in: 120m
     container:
       image: inok2341/anu:latest
@@ -16,7 +16,7 @@ task:
       - echo "$rclone_config" > ~/.config/rclone/rclone.conf
       - df -h && free -h && nproc && cat /etc/os* && env
       - mkdir -p /tmp/ccache
-      - rclone copy inok:nusantara/ccache.tar.gz /tmp -P
+      - rclone copy rcloneidp:derpfest/ccache.tar.gz /tmp -P
       - cd /tmp
       - time tar xf ccache.tar.gz
       - ls /tmp
