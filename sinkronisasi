@@ -7,13 +7,12 @@ repo init -q --no-repo-verify --depth=1 -u git://github.com/DerpFest-11/manifest
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
 # Remove stuff
-rm -rf vendor/derp && rm -rf device/generic && rm -rf prebuilts/gcc/linux-x86/aarch64/aarch64-elf
+rm -rf device/generic && rm -rf prebuilts/gcc/linux-x86/aarch64/aarch64-elf
 
 # Trees
 git clone --depth=1 https://github.com/indraadp/device_xiaomi_juice -b derpfest device/xiaomi/juice
 git clone --depth=1 https://github.com/indraadp/prebuilt_vendor_juice --single-branch -b A11 vendor/xiaomi/juice
 git clone --depth=1 https://github.com/indraadp/stormbreaker_kernel_juice --single-branch -b test kernel/xiaomi/juice
-git clone --depth=1 https://github.com/indraadp/vendor_derp -b A11 vendor/derp
 
 # toolchain
 git clone https://github.com/indraadp/arm64-gcc-11 prebuilts/gcc/linux-x86/aarch64/aarch64-elf
