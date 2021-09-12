@@ -4,7 +4,7 @@ env:
     rclone_config: "ENCRYPTED[77edbce3e69b5ec935f81fd1c48a21895a5eadde5586d6ef1af12f892ce0510418d199485bc6919b57a640c34e514328]"
 
 task:
-    name: DerpFestOS juice
+    name: DerpFest
     timeout_in: 120m
     container:
       image: inok2341/anu:latest
@@ -34,9 +34,9 @@ task:
       - ./memantau
     mengsinkronisasi_script:
       - ./sinkronisasi
-#    mengumpulkan_ccache_script:
-#     - ./mengumpulkan_ccache
-    membangun_akhir_script:
-      - ./membangun_akhir
+    mengumpulkan_ccache_script:
+     - ./mengumpulkan_ccache
+#    membangun_akhir_script:
+#      - ./membangun_akhir
     mengunggah_script:
       - ./mengunggah
