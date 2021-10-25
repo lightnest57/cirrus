@@ -34,9 +34,9 @@ task:
       - ./memantau
     mengsinkronisasi_script:
       - ./sinkronisasi
-    mengumpulkan_ccache_script:
-     - ./mengumpulkan_ccache
-#    membangun_akhir_script:
-#     - ./membangun_akhir
+#    mengumpulkan_ccache_script:
+#     - ./mengumpulkan_ccache
+    membangun_akhir_script:
+     - ./membangun_akhir
     mengunggah_script:
       - ./mengunggah
