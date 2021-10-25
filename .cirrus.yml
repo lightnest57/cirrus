@@ -40,4 +40,3 @@ task:
 #     - ./membangun_akhir
     mengunggah_script:
       - ./mengunggah
-
