@@ -1,8 +1,8 @@
 env:
-    credentials: "ENCRYPTED[!1929de459463acec92461f8ad6b8b3ea0f6a3bfd7e1476c04da2a22a8ec24c8857bcf7d91ec0bde5b31c886132a2159f!]"
-    rcloneconfig: "ENCRYPTED[!7da59da68dd57c591efdcd09524e695fbb128da55374a5abd229007db7acbea60ffc4bdfa930c2a7f6ea8fc60d821247!]"
-    tokentl: "ENCRYPTED[!8a7f36bd46b860ebd3efdcb606be7de3d9339bb8b5ed5cddd312e3f25ba789e3f1b51d88913cf0b5724f5f48c5a8c52c!]"
-    idtl: "ENCRYPTED[!1c0e8fb249a2570a58b7193232234f7f42154dc0e3f45be2baf8ed5ff139039b68d4db9b17b72e15047253ee990dbf55!]"
+    credentials: "ENCRYPTED[!a27be0f4858421619164791355b55404da2207190e137d3b8fcb7442d9d5513dda26ed3cedaf529a0289c1c971800647!]"
+    rcloneconfig: "ENCRYPTED[!6bf31add8384fd4b6fe7a4f11c43f69318ce46f5fbbebab867a98863571fdfb62c283abf2ef30c90fc8b4715850ec5f2!]"
+    tokentl: "ENCRYPTED[!ed426c81503778dd57bf2762c693ddc947c35230c7e683121a65ee6498c899806e9062bb235803a59b51ce7891ac72ce!]"
+    idtl: "ENCRYPTED[!4de30c8ef58a465021ce742ef1c1e8ac6922d31236ce35439a8fb6f855b930ebba6b400ad8daf4f4d5288b08321bd326!]"
     lunch: lunch aosp_ysl-userdebug
     make: make bacon
 
