@@ -43,8 +43,8 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Spark-Rom/manifest -b fire -g default,-mips,-darwin,-notdefault
-      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/darklightnest/manifest -b fire -g default,-mips,-darwin,-notdefault
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
