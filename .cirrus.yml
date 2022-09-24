@@ -17,12 +17,12 @@ task:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
-       - git config --global user.name "darknius22"
-       - git config --global user.email "darknius22@gmail.com"
+       - git config --global user.name "darknius09"
+       - git config --global user.email "darkniuslightness@gmail.com"
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p ~/ccache
-       - rclone copy darx:forklos12/ccache.tar.gz ~/ -P
+       - rclone copy darx:rice12/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -42,8 +42,7 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/ForkLineageOS/android.git -b lineage-19.1 -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/darknius09/local_manifest -b forklos --depth 1 .repo/local_manifests
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/darknius09/manifest-ricedroid.git -b twelve -g default,-mips,-darwin,-notdefault
       - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -58,13 +57,13 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/lineage-*.zip
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/riceDroid-12.1-*.zip
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
-      - rclone copy ~/rom/out/target/product/juice/lineage-*.zip darx:juice -P
+      - rclone copy ~/rom/out/target/product/juice/riceDroid-12.1-*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
 #      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-#      - rclone copy ccache.tar.gz darx:forklos12 -P
+#      - rclone copy ccache.tar.gz darx:rice12 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
