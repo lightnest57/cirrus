@@ -3,9 +3,9 @@ env:
     rcloneconfig: "ENCRYPTED[!511b02e15ab63a18b31bfdab42ab121e222a6ff0b15f16ea0e60f5fa37898fd747df8669f2ec50162ab0022098b5810e!]"
     tokentl: "ENCRYPTED[!372778c03785ff4e30eb4513b2abc0aacee1d0a3bab9db48e708fda711483876afce92d80d2a70a238352234a7cb716d!]"
     idtl: "ENCRYPTED[!c9824f19c5c7b9651f946bcac2356e2f827c34897e82f6ee39d169b7eb8893d650550ba213d45904b26f250ecc586e7c!]"
-    lunch: lunch spark_juice-userdebug
+    lunch : lunch fluid_juice-userdebug
     make: mka bacon
-
+ 
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 480m  
@@ -18,12 +18,9 @@ task:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
-       - git config --global user.name "darknius22"
-       - git config --global user.email "darknius22@gmail.com"
-       - echo "$credentials" > ~/.git-credentials
-       - git config --global credential.helper store --file=~/.git-credentials
+       - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy darx:spark12/ccache.tar.gz ~/ -P
+       - rclone copy darx:fluid/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -32,40 +29,33 @@ task:
       - df -h
       - lsblk
       - ls -l -a -h
-      - ./w.sh
+      - ./s.sh
   
   Sync_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
+      - rm -rf ~/rom
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - mkdir -p ~/.anu
-      - export PATH="~/.anu:$PATH"
-      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
-      - chmod a+x ~/.anu/repoo
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/darknius09/manifest-spark -b spark -g default,-mips,-darwin,-notdefault
-      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b fluid-11 -g default,-mips,-darwin,-notdefault
+      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
-      - export BUILD_USERNAME="darknius"
-      - export BUILD_HOSTNAME="darx-Labs"
-      - export BUILD_WITH_COLORS=1
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
       - ./collect.sh
 #      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Spark-*.zip
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
-#      - rclone copy ~/rom/out/target/product/juice/Spark-*.zip darx:juice -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Fluid-*.zip
+#      - rclone copy ~/rom/out/target/product/juice/Fluid-*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:spark12 -P
+      - rclone copy ccache.tar.gz darx:fluid -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
-
