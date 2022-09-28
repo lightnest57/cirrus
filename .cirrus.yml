@@ -1,8 +1,7 @@
 env:
-    credentials: "ENCRYPTED[!80ac0759085781877f544669e2d0bc6033519cdabf07e6f4a4a364aa08b0580ef3f7112eaecf6e8e98c3d04698f9dd7e!]"
-    rcloneconfig: "ENCRYPTED[!511b02e15ab63a18b31bfdab42ab121e222a6ff0b15f16ea0e60f5fa37898fd747df8669f2ec50162ab0022098b5810e!]"
-    tokentl: "ENCRYPTED[!372778c03785ff4e30eb4513b2abc0aacee1d0a3bab9db48e708fda711483876afce92d80d2a70a238352234a7cb716d!]"
-    idtl: "ENCRYPTED[!c9824f19c5c7b9651f946bcac2356e2f827c34897e82f6ee39d169b7eb8893d650550ba213d45904b26f250ecc586e7c!]"
+    rcloneconfig: "ENCRYPTED[!66d07a2a341784af7c7c0ff7ee56a795ead24d152b52dd89f217e0c174c5912fb1329c2d1cd69afd63600cbafcbb4cad!]"
+    tokentl: "ENCRYPTED[!f181c13d5ceb29e9ff0ed624f603e1b543d36b1135160b21f19f233636363a55da5e65c854585705eb420c5b88629834!]"
+    idtl: "ENCRYPTED[!eaff6f67e1c9ae68eb5593e663569903810a4365836e762750cfbfb00dfd4fd7e69f321d2c6c4b52a9e6a710f0cda440!]"
     lunch : lunch fluid_juice-userdebug
     make: mka bacon
  
@@ -20,7 +19,7 @@ task:
        - echo "$rcloneconfig" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy darx:fluid/ccache.tar.gz ~/ -P
+       - rclone copy darx:fluid11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -32,6 +31,7 @@ task:
       - ./w.sh
       - sudo ./swap.sh
       - sudo ./zram.sh
+      - df -h
   
   Sync_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
@@ -46,18 +46,18 @@ task:
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
-      - ./collect.sh
-#      - ./final.sh
+#      - ./collect.sh
+      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
       - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Fluid-*.zip
-#      - rclone copy ~/rom/out/target/product/juice/Fluid-*.zip darx:juice -P
+      - rclone copy ~/rom/out/target/product/juice/Fluid-*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-      - ./ziping.sh
+#      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:fluid -P
+#      - rclone copy ccache.tar.gz darx:fluid11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
