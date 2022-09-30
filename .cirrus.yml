@@ -2,9 +2,10 @@ env:
     rcloneconfig: "ENCRYPTED[!66d07a2a341784af7c7c0ff7ee56a795ead24d152b52dd89f217e0c174c5912fb1329c2d1cd69afd63600cbafcbb4cad!]"
     tokentl: "ENCRYPTED[!f181c13d5ceb29e9ff0ed624f603e1b543d36b1135160b21f19f233636363a55da5e65c854585705eb420c5b88629834!]"
     idtl: "ENCRYPTED[!eaff6f67e1c9ae68eb5593e663569903810a4365836e762750cfbfb00dfd4fd7e69f321d2c6c4b52a9e6a710f0cda440!]"
-    lunch : lunch aosp_juice-userdebug
-    make: mka bacon
- 
+    idtl: "ENCRYPTED[!c9824f19c5c7b9651f946bcac2356e2f827c34897e82f6ee39d169b7eb8893d650550ba213d45904b26f250ecc586e7c!]"
+    lunch: lunch spark_juice-userdebug
+    make: mka spark
+
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
   timeout_in: 480m  
@@ -17,9 +18,12 @@ task:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
-       - rm -rf ~/ccache
+       - git config --global user.name "darknius22"
+       - git config --global user.email "darknius22@gmail.com"
+       - echo "$credentials" > ~/.git-credentials
+       - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p ~/ccache
-       - rclone copy darx:pb11/ccache.tar.gz ~/ -P
+       - rclone copy darx:spark11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -32,29 +36,35 @@ task:
   
   Sync_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
-      - rm -rf ~/rom
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b pb-11 -g default,-mips,-darwin,-notdefault
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - mkdir -p ~/.anu
+      - export PATH="~/.anu:$PATH"
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
+      - chmod a+x ~/.anu/repoo
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b spark-11 -g default,-mips,-darwin,-notdefault
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
+      - export BUILD_USERNAME="darknius"
+      - export BUILD_HOSTNAME="darx-Labs"
+      - export BUILD_WITH_COLORS=1
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
-      - ./collect.sh
-#      - ./final.sh
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
+#      - ./collect.sh
+      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/PixelBlaster_3*.zip
-#      - rclone copy ~/rom/out/target/product/juice/PixelBlaster_3*.zip darx:juice -P
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Spark-*.zip
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
+      - rclone copy ~/rom/out/target/product/juice/Spark-*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-      - ./ziping.sh
+#      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:pb11 -P
+#      - rclone copy ccache.tar.gz darx:spark11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
