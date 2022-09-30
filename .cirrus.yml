@@ -2,7 +2,6 @@ env:
     rcloneconfig: "ENCRYPTED[!66d07a2a341784af7c7c0ff7ee56a795ead24d152b52dd89f217e0c174c5912fb1329c2d1cd69afd63600cbafcbb4cad!]"
     tokentl: "ENCRYPTED[!f181c13d5ceb29e9ff0ed624f603e1b543d36b1135160b21f19f233636363a55da5e65c854585705eb420c5b88629834!]"
     idtl: "ENCRYPTED[!eaff6f67e1c9ae68eb5593e663569903810a4365836e762750cfbfb00dfd4fd7e69f321d2c6c4b52a9e6a710f0cda440!]"
-    idtl: "ENCRYPTED[!c9824f19c5c7b9651f946bcac2356e2f827c34897e82f6ee39d169b7eb8893d650550ba213d45904b26f250ecc586e7c!]"
     lunch: lunch spark_juice-userdebug
     make: mka spark
 
