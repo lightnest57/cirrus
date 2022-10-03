@@ -29,9 +29,6 @@ task:
       - lsblk
       - ls -l -a -h
       - ./w.sh
-      - sudo ./zram.sh
-      - sudo ./swap.sh
-      - df -h
   
   Sync_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Start sync Source"
