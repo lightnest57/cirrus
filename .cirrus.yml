@@ -1,4 +1,5 @@
 env:
+    credentials: "ENCRYPTED[!443f7891b526f4ef57e4af5cee45981e8c2cd4fa80ddb6ce86eb2bee2c50106d8c9ca215f2fa7b41f12dd5a1b0fff28c!]"
     rcloneconfig: "ENCRYPTED[!66d07a2a341784af7c7c0ff7ee56a795ead24d152b52dd89f217e0c174c5912fb1329c2d1cd69afd63600cbafcbb4cad!]"
     tokentl: "ENCRYPTED[!f181c13d5ceb29e9ff0ed624f603e1b543d36b1135160b21f19f233636363a55da5e65c854585705eb420c5b88629834!]"
     idtl: "ENCRYPTED[!eaff6f67e1c9ae68eb5593e663569903810a4365836e762750cfbfb00dfd4fd7e69f321d2c6c4b52a9e6a710f0cda440!]"
@@ -17,8 +18,8 @@ task:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
        - echo "$rcloneconfig" > ~/.rclone.conf
-       - git config --global user.name "darknius22"
-       - git config --global user.email "darknius22@gmail.com"
+       - git config --global user.name "dragonroad99"
+       - git config --global user.email "fadhilm298@gmail.com"
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p ~/ccache
@@ -39,7 +40,7 @@ task:
       - cd ~/rom
       - rm -rf * .repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/NusantaraProject-ROM/android_manifest -b 10 -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/darklightnest/local_manifest --depth 1 -b nadq .repo/local_manifests
+      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b main .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
