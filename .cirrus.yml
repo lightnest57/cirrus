@@ -3,8 +3,8 @@ env:
     rcloneconfig: "ENCRYPTED[!21ca7e7740fa6fbd9c435e761d18491e41bf37d66281bc59abb2af19a2beba0f409481b682708039184f4c34fdf7ab55!]"
     tokentl: "ENCRYPTED[!10ba17f74062097a7b603546be57f543dbefabaa9f14ececa72424fe46ef42824dcea4ccea43e8b176881e9023413067!]"
     idtl: "ENCRYPTED[!aecfbaae9fe7e268eb6bb0cd15023e3d00da3bb7d5137f92ba2484264289045c3562b95bfa55a0004a423f12b282f077!]"
-    lunch : lunch qassa_juice-userdebug
-    make: mka qassa
+    lunch : lunch ancient_juice-userdebug
+    make: mka bacon
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -23,7 +23,7 @@ task:
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p ~/ccache
-       - rclone copy darx:qassa/ccache.tar.gz ~/ -P
+       - rclone copy darx:anciq/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -39,8 +39,8 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/darknius2/qassa.git -b Q -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b qassa .repo/local_manifests
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/anci-manifest -b ten-weeabo -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/Night-Raids-Reborn/local_manifest --depth 1 -b anciq .repo/local_manifests
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -53,12 +53,12 @@ task:
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/qassa-v*.zip
-      - rclone copy ~/rom/out/target/product/juice/qassa-v*.zip darx:juice -P
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/AncientOS-*.zip
+      - rclone copy ~/rom/out/target/product/juice/AncientOS-*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
 #      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-#      - rclone copy ccache.tar.gz darx:qassa -P
+#      - rclone copy ccache.tar.gz darx:anciq -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
