@@ -10,8 +10,8 @@ ccache -o compression=true
 ccache -z
 
 . build/envsetup.sh
-lunch derp_juice-userdebug
-mka derp &
-sleep 90m
+lunch evolution_juice-userdebug
+mka evolution &
+sleep 97m
 kill %1
 ccache -s

@@ -3,16 +3,11 @@
 cd /tmp/rom
 
 # sync
-repo init -q --no-repo-verify --depth=1 -u git://github.com/DerpFest-11/manifest.git -b 11 -g default,-device,-mips,-darwin,-notdefault
+repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b snow -g default,-device,-mips,-darwin,-notdefault
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
-# Remove stuff
-rm -rf device/generic && rm -rf prebuilts/gcc/linux-x86/aarch64/aarch64-elf
-
 # Trees
-git clone --depth=1 https://github.com/indraadp/device_xiaomi_juice -b derpfest device/xiaomi/juice
-git clone --depth=1 https://github.com/indraadp/prebuilt_vendor_juice --single-branch -b A11 vendor/xiaomi/juice
-git clone --depth=1 https://github.com/indraadp/kernel_xiaomi_juice --single-branch -b test kernel/xiaomi/juice
+git clone --depth=1 https://github.com/Night-Raids-Reborn/dt-juice -b evox device/xiaomi/juice
+git clone --depth=1 https://github.com/Night-Raids-Reborn/vendor_xiaomi_juice --single-branch -b snow vendor/xiaomi/juice
+git clone --depth=1 https://github.com/darknius20/guuji_kernel_juice --single-branch -b main.stbl kernel/xiaomi/juice
 
-# toolchain
-git clone https://github.com/indraadp/arm64-gcc-11 prebuilts/gcc/linux-x86/aarch64/aarch64-elf

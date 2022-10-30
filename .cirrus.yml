@@ -1,10 +1,11 @@
 env:
-    token_telegram: "ENCRYPTED[1c93d2fc5120b1bc4e4c22881857145aca9fcf047735a11cca4d602b7372c01c6a8f5e9663fcb732ff8d4cb44787a8ec]"
-    id_telegram: "ENCRYPTED[5c057df3fef290e80e278e996ecd4992ade3caf260c0a048c09fa2b04a03623bccf49f6d043d878ab6ee4b68c8ae96a5]"
-    rclone_config: "ENCRYPTED[77edbce3e69b5ec935f81fd1c48a21895a5eadde5586d6ef1af12f892ce0510418d199485bc6919b57a640c34e514328]"
-
+    credentials: "ENCRYPTED[!6669ccae0597fb44a38c9728dd47e083c47b2e6b7cbe0914677a1e5b83bfa5bbffc2ac64661ccbc27e381fbdadb8793e!]"
+    token_telegram: "ENCRYPTED[!10ba17f74062097a7b603546be57f543dbefabaa9f14ececa72424fe46ef42824dcea4ccea43e8b176881e9023413067!]"
+    id_telegram: "ENCRYPTED[!aecfbaae9fe7e268eb6bb0cd15023e3d00da3bb7d5137f92ba2484264289045c3562b95bfa55a0004a423f12b282f077!]"
+    rclone_config: "ENCRYPTED[!21ca7e7740fa6fbd9c435e761d18491e41bf37d66281bc59abb2af19a2beba0f409481b682708039184f4c34fdf7ab55!]"
+    
 task:
-    name: DerpFest
+    name: evox
     timeout_in: 120m
     container:
       image: inok2341/anu:latest
@@ -14,9 +15,13 @@ task:
     mengunduh_ccache_background_script:
       - mkdir -p ~/.config/rclone
       - echo "$rclone_config" > ~/.config/rclone/rclone.conf
+      - git config --global user.name "darknius2"
+      - git config --global user.email "darknius2@gmail.com"
+      - echo "$credentials" > ~/.git-credentials
+      - git config --global credential.helper store --file=~/.git-credentials
       - df -h && free -h && nproc && cat /etc/os* && env
       - mkdir -p /tmp/ccache
-      - rclone copy rcloneidp:derpfest/ccache.tar.gz /tmp -P
+      - rclone copy darx:evox12/ccache.tar.gz /tmp -P
       - cd /tmp
       - time tar xf ccache.tar.gz
       - ls /tmp
@@ -34,9 +39,9 @@ task:
       - ./memantau
     mengsinkronisasi_script:
       - ./sinkronisasi
-#    mengumpulkan_ccache_script:
-#     - ./mengumpulkan_ccache
-    membangun_akhir_script:
-     - ./membangun_akhir
+    mengumpulkan_ccache_script:
+     - ./mengumpulkan_ccache
+#    membangun_akhir_script:
+#     - ./membangun_akhir
     mengunggah_script:
       - ./mengunggah

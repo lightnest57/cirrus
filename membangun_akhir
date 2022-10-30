@@ -10,5 +10,5 @@ ccache -o compression=true
 ccache -z
 
 . build/envsetup.sh
-lunch derp_juice-userdebug
-mka derp -j8
+lunch evolution_juice-userdebug
+mka evolution -j8
