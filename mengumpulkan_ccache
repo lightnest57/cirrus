@@ -8,10 +8,14 @@ export USE_CCACHE=1
 ccache -M 20G
 ccache -o compression=true
 ccache -z
-
-. build/envsetup.sh
-lunch evolution_juice-userdebug
-mka evolution &
+export BUILD_USERNAME="darknius"
+export BUILD_HOSTNAME="darx-labs"
+$lunch
+export ALLOW_MISSING_DEPENDENCIES=true
+export BUILD_BROKEN_USES_BUILD_COPY_HEADERS=true
+export BUILD_BROKEN_DUP_RULES=true
+make sepolicy
+$make -j8 &
 sleep 97m
 kill %1
 ccache -s
