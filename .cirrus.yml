@@ -3,8 +3,8 @@ env:
     rcloneconfig: "ENCRYPTED[!21ca7e7740fa6fbd9c435e761d18491e41bf37d66281bc59abb2af19a2beba0f409481b682708039184f4c34fdf7ab55!]"
     tokentl: "ENCRYPTED[!10ba17f74062097a7b603546be57f543dbefabaa9f14ececa72424fe46ef42824dcea4ccea43e8b176881e9023413067!]"
     idtl: "ENCRYPTED[!aecfbaae9fe7e268eb6bb0cd15023e3d00da3bb7d5137f92ba2484264289045c3562b95bfa55a0004a423f12b282f077!]"
-    lunch : lunch evolution_juice-userdebug
-    make: mka evolution
+    lunch : lunch awaken_juice-userdebug
+    make: make awaken
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -23,7 +23,7 @@ task:
        - echo "$credentials" > ~/.git-credentials
        - git config --global credential.helper store --file=~/.git-credentials
        - mkdir -p ~/ccache
-       - rclone copy darx:evox12/ccache.tar.gz ~/ -P
+       - rclone copy darx:awaken12/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -44,10 +44,10 @@ task:
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repo
       - chmod a+x ~/.anu/repo
       - git clone https://gerrit.googlesource.com/git-repo .repo/repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Evolution-X/manifest -b snow -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Project-Awaken/android_manifest -b 12.1 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/dt-juice -b evox device/xiaomi/juice
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/vendor_xiaomi_juice --single-branch -b snow vendor/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b awaken12 device/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
       - git clone --depth=1 https://github.com/darknius20/guuji_kernel_juice --single-branch -b main.stbl kernel/xiaomi/juice
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -62,13 +62,13 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/evolution_juice-*.zip
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Awaken-2*.zip
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
- #     - rclone copy ~/rom/out/target/product/juice/evolution_juice-*.zip darx:juice -P
+ #     - rclone copy ~/rom/out/target/product/juice/Awaken-2*.zip darx:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darx:evox12 -P
+      - rclone copy ccache.tar.gz darx:awaken12 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
