@@ -36,6 +36,11 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
+      - mkdir -p ~/.anu
+      - export PATH="~/.anu:$PATH"
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repo
+      - chmod a+x ~/.anu/repo
+      - git clone https://gerrit.googlesource.com/git-repo .repo/repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b kscope-12.1 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b kscope device/xiaomi/juice
