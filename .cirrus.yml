@@ -45,7 +45,7 @@ task:
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repo
       - chmod a+x ~/.anu/repo
       - git clone https://gerrit.googlesource.com/git-repo .repo/repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/lightnest57/ros_manifest -b r11.0 -g default,-mips,-darwin,-notdefault
+      - repo init -q --no-repo-verify --depth=1 -u https://github.com/lightnest57/manifest-rom -b ros11 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b revengeos device/xiaomi/juice
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
@@ -58,19 +58,19 @@ task:
       - export BUILD_WITH_COLORS=1
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started!"
-      - ./collect.sh
-#      - ./final.sh
+#      - ./collect.sh
+      - ./final.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/RevengeOS-4.*.zip
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
-  #    - rclone copy ~/rom/out/target/product/juice/RevengeOS-4.*.zip darx:juice -P
+      - rclone copy ~/rom/out/target/product/juice/RevengeOS-4.*.zip darkn:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-      - ./ziping.sh
+#      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz darkn:ros11 -P
+   #   - rclone copy ccache.tar.gz darkn:ros11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
       
