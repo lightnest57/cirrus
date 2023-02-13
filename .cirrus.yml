@@ -47,12 +47,9 @@ task:
       - git clone https://gerrit.googlesource.com/git-repo .repo/repo
       - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b dot11 -g default,-mips,-darwin,-notdefault
       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b dot-backup device/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b dot-vanilla device/xiaomi/juice
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
       - git clone --depth=1 https://github.com/darknius20/guuji_kernel_juice --single-branch -b main.stbl kernel/xiaomi/juice
-      # opengapps
-      - git clone https://gitlab.opengapps.org/opengapps/arm64/ -b master --depth=1 vendor/opengapps/sources/arm64
-      - git clone https://gitlab.opengapps.org/opengapps/all/ -b master --depth=1 vendor/opengapps/sources/all
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
