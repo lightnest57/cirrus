@@ -63,7 +63,7 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -T '~/rom/out/target/product/juice/dotOS-*.zip' temp.sh
+      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/dotOS-*.zip
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build $(cd ~/rom/out/target/product/juice/ && ls *.zip)"
       - rclone copy ~/rom/out/target/product/juice/dotOS-*.zip darkn:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
