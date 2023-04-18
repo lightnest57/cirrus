@@ -42,11 +42,10 @@ task:
       - rm -rf * .repo
       - mkdir -p ~/.anu
       - export PATH="~/.anu:$PATH"
-      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repo
-      - chmod a+x ~/.anu/repo
-      - git clone https://gerrit.googlesource.com/git-repo .repo/repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b bliss-11 -g default,-mips,-darwin,-notdefault
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
+      - chmod a+x ~/.anu/repoo
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b bliss-11 -g default,-mips,-darwin,-notdefault
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b bliss device/xiaomi/juice
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
       - git clone --depth=1 https://github.com/darknius20/guuji_kernel_juice --single-branch -b main.stbl kernel/xiaomi/juice
