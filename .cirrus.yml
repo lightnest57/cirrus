@@ -19,6 +19,10 @@ task:
         
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
+       - wget -qO - https://azlux.fr/repo.gpg.key | sudo apt-key add -
+       - sudo add-apt-repository "deb https://packages.azlux.fr/debian/ buster main"
+       - sudo apt update -y
+       - sudo apt install rclone -y
        - mkdir -p ~/.config/rclone
        - echo "$rclonemega" > ~/.rclone.conf
        - rm -rf ~/ccache
