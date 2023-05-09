@@ -45,7 +45,7 @@ task:
       - chmod a+x ~/.anu/repoo
       - repoo init -q --no-repo-verify --depth=1 -u https://github.com/CherishOS/android_manifest -b tiramisu -g default,-mips,-darwin,-notdefault
       - git clone https://github.com/lightnest57/local_manifest --depth 1 -b cherish13 .repo/local_manifests
-      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fast-fast
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
