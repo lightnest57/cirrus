@@ -57,7 +57,7 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
    #   - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/PixelBlaster_3*.zip
       - echo "$rclonefm" > ~/.rclone.conf
-      - rclone copy ~/rom/out/target/product/juice/PixelBlaster_3*.zip darx:juice -P
+      - rclone copy ~/rom/out/target/product/juice/PixelBlaster_3*.zip fm293:juice -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
 #      - ./ziping.sh
