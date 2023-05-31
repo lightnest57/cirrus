@@ -6,8 +6,8 @@ env:
     rclonemega: "ENCRYPTED[!5fad0e2e9c7ea10f1f5c6347a6bc2b0110cf02f08d34b69e909c900214bf5b2f12a94b67ec78371f4ff1395fdbd882d4!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
     idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
-    lunch : lunch aosp_juice-userdebug
-    make: make bacon
+    lunch : lunch fluid_juice-userdebug
+    make: mka bacon
  
 task:
   name: "Setting Up, Syncing, Building and Uploading..."
@@ -24,10 +24,10 @@ task:
        - sudo apt update -y
        - sudo apt install rclone -y
        - mkdir -p ~/.config/rclone
-       - echo "$rclonefm" > ~/.rclone.conf
+       - echo "$rcloneconfig" > ~/.rclone.conf
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy fm293:tenx/ccache.tar.gz ~/ -P
+       - rclone copy darx:fluid11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -48,9 +48,9 @@ task:
       - export PATH="~/.anu:$PATH"
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
-      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b tenx11 -g default,-mips,-darwin,-notdefault
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom.git -b fluid-11 -g default,-mips,-darwin,-notdefault
       - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-      - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b tenx device/xiaomi/juice
+      - git clone --depth=1 https://github.com/Night-Raids-Reborn/devise -b 11-vanilla device/xiaomi/juice
       - git clone --depth=1 https://github.com/Night-Raids-Reborn/android_vendor_xiaomi_juice --single-branch -b 11.0 vendor/xiaomi/juice
       - git clone --depth=1 https://github.com/darknius20/guuji_kernel_juice --single-branch -b main.stbl kernel/xiaomi/juice
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
@@ -63,14 +63,12 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-#      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/juice/Fluid-*.zip
- #     - rclone copy ~/rom/out/target/product/juice/Fluid-*.zip fm293:juice -P
+      - ./up.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-      - ./ziping.sh
+#      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz fm293:tenx -P
+#      - rclone copy ccache.tar.gz fm293:fluid -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
 
