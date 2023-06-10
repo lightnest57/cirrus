@@ -40,9 +40,13 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/lightnest57/local_manifest --depth 1 -b risd .repo/local_manifests
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 && repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - mkdir -p ~/.anu
+      - export PATH="~/.anu:$PATH"
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
+      - chmod a+x ~/.anu/repoo
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/RisingTechOSS/android -b thirteen -g default,-mips,-darwin,-notdefault
+      - git clone https://github.com/lightnest57/local_manifest --depth 1 -b ristest .repo/local_manifests
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
@@ -53,10 +57,7 @@ task:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
 
   Upload_script:
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-#      - curl -sL https://git.io/file-transfer | sh && ./transfer wet ~/rom/out/target/product/citrus/risingos-v*.zip
- #     - rclone copy ~/rom/out/target/product/citrus/risingOS-v*.zip fm293:citrus -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
+ #     - ./up.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
       - ./ziping.sh
       - cd ~/
