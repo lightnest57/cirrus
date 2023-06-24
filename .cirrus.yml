@@ -5,7 +5,7 @@ env:
     rclonefm: "ENCRYPTED[!db9a8f7f83b9da4d15c4b4c0443177cb0ec7436f969a52d2125c9a5680cf8b81833a24761c5902110fb1ed4acb388612!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
     idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
-    lunch : lunch xdroid_juice-userdebug
+    lunch : lunch xdroid_juice-user
     make: make xd
  
 task:
@@ -62,8 +62,8 @@ task:
   Upload_script:
       - ./up.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
- #     - ./ziping.sh
+      - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-#      - rclone copy ccache.tar.gz 298:xd11 -P
+      - rclone copy ccache.tar.gz 298:xd11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
