@@ -48,7 +48,7 @@ task:
       - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
       - chmod a+x ~/.anu/repoo
       - repoo init -q --no-repo-verify --depth=1 -u https://github.com/xdCLO/xd_manifest -b eleven -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/IDN-Labs/local_manifest -b xdcaf-juice --depth 1 .repo/local_manifests
+      - git clone https://github.com/Night-Raids-Reborn/local_manifest -b xdcaf-juice --depth 1 .repo/local_manifests
       - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
@@ -62,8 +62,8 @@ task:
   Upload_script:
       - ./up.sh
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
-      - ./ziping.sh
+ #     - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz 298:xd11 -P
+  #    - rclone copy ccache.tar.gz 298:xd11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
