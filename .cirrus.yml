@@ -1,6 +1,6 @@
 env:
-    credentials: "ENCRYPTED[!f82db958bb2f6c4f351965e3b2c480db67877f30f96047f313df7324e86ace9a6d3a8e6b348b33fb2c15ddaf8ef90e75!]"
-    rcloneconfig: "ENCRYPTED[!073487a5e05d4c1ec1cb6ea256c4652580b014e3a7a5ec6df2dc3a95245b7ceb6bfc149e0e55baeec338e6fb102b3573!]"
+    credentials: "ENCRYPTED[!ad9cea0817cc65d379a00cf100bda1e3b52549daaa0e8a01145475df4e8c7458d6ca5a474f3f4675d119a2e916eaa03f!]"
+    rcloneconfig: "ENCRYPTED[!29d926c955d95a02f6a181973c3922116d4148fbf82d38312fba782c63298324d931885d569f32c6e630ac56f64a6fa6!]"
     rclonepcloud: "ENCRYPTED[!d00c79a6d71db63d5a6da3f85291e783b384f4f9ead7b003a29d2c0abeff27c0a27164730561ac2158de0df72e5cecc8!]"
     rclonefm: "ENCRYPTED[!db9a8f7f83b9da4d15c4b4c0443177cb0ec7436f969a52d2125c9a5680cf8b81833a24761c5902110fb1ed4acb388612!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
@@ -19,10 +19,14 @@ task:
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
        - mkdir -p ~/.config/rclone
-       - echo "$rclonefm" > ~/.rclone.conf
+       - echo "$rcloneconfig" > ~/.rclone.conf
+       - git config --global user.name "darknius09"
+       - git config --global user.email "darkniuslightness@gmail.com"
+       - echo "$credentials" > ~/.git-credentials
+       - git config --global credential.helper store --file=~/.git-credentials
        - rm -rf ~/ccache
        - mkdir -p ~/ccache
-       - rclone copy fm293:havoc11/ccache.tar.gz ~/ -P
+       - rclone copy 298:havoc11/ccache.tar.gz ~/ -P
        - cd ~/
        - time tar xf ccache.tar.gz
        - cd ~/
@@ -39,9 +43,12 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
-      - repo init -q --no-repo-verify --depth=1 -u https://github.com/Havoc-OS/android_manifest -b eleven -g default,-mips,-darwin,-notdefault
-      - git clone https://github.com/lightnest57/local_manifest --depth 1 -b havoc11 .repo/local_manifests
-      - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+      - mkdir -p ~/.anu
+      - export PATH="~/.anu:$PATH"
+      - curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/.anu/repoo
+      - chmod a+x ~/.anu/repoo
+      - repoo init -q --no-repo-verify --depth=1 -u https://github.com/Night-Raids-Reborn/manifest-rom -b havoc-11 -g default,-mips,-darwin,-notdefault
+      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Sync Completed!"
 
   Build_script:
@@ -57,6 +64,6 @@ task:
       - ./ziping.sh
       - cd ~/
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading ccache...."
-      - rclone copy ccache.tar.gz fm293:havoc11 -P
+      - rclone copy ccache.tar.gz 298:havoc11 -P
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Ccache Uploaded Successfully!"
 
