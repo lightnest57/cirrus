@@ -42,6 +42,9 @@ task:
       - mkdir -p ~/rom
       - cd ~/rom
       - rm -rf * .repo
+      - sudo apt update -y
+      - sudo apt install dnsutils -y
+      - sudo apt install procps -y
       - sudo nslookup googlesource.com
       - sudo nslookup android.googlesource.com
       - sudo sysctl -w net.ipv4.tcp_window_scaling=0
