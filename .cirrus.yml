@@ -14,7 +14,7 @@ task:
   container:
       image: ohmyvenyx/idn-labs:latest
       cpu: 8
-      memory: 24G
+      memory: 32G
         
   Build-Env-Setup_background_script:
        - export DEBIAN_FRONTEND=noninteractive
