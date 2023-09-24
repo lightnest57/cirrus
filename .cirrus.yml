@@ -5,7 +5,7 @@ env:
     rclonefm: "ENCRYPTED[!db9a8f7f83b9da4d15c4b4c0443177cb0ec7436f969a52d2125c9a5680cf8b81833a24761c5902110fb1ed4acb388612!]"
     tokentl: "ENCRYPTED[!5487857f6bde4d673a04119d51f02abef221c90acf20e97c7b626cc3b411b7976f1c5075c74ee091aade97e41fe7d16e!]"
     idtl: "ENCRYPTED[!d387faacf1a99eb9e5ea8b63c3d1c949a24a852d61b38ba5dba62db7e7b13248e7f56fdd44e6ec3d60865789afc75439!]"
-    lunch: lunch qassa_citrus-userdebug
+    lunch: lunch qassa_juice-userdebug
     make: make qassa
 
 task:
@@ -44,7 +44,7 @@ task:
       - sudo curl --create-dirs -L -o /usr/local/bin/repoo -O -L https://storage.googleapis.com/git-repo-downloads/repo
       - sudo chmod a+rx /usr/local/bin/repoo
       - repoo init -q --no-repo-verify --depth=1 -u https://github.com/keepQASSA/manifest.git -b Q -g default,-mips,-darwin,-notdefault
-      - git clone --depth 1 https://github.com/Night-Raids-Reborn/local_manifest/ -b qassa_citrus .repo/local_manifests
+      - git clone --depth 1 https://github.com/Night-Raids-Reborn/local_manifest/ -b qassa_juice .repo/local_manifests
       - rm -rf .repo/repo && git clone https://gerrit.googlesource.com/git-repo .repo/repo
       - sed -i 's|ssh://git@github.com|https://github.com|g' .repo/manifests/snippets/qassa.xml
 #      - repoo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8 --fail-fast
@@ -56,16 +56,15 @@ task:
 
   Build_script:
       - sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-      - export WITH_GAPPS=true
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build Started"
  #     - ./collect.sh
       - ./final.sh
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Completed!"
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Completed!"
 
   Upload_script:
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Uploading Build..."
-      - rclone copy ~/rom/out/target/product/citrus/qassa_*.zip 298:citrus -P
-      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/citrus/ && ls *.zip) Uploaded Successfully!"
+      - rclone copy ~/rom/out/target/product/juice/qassa_*.zip 298:juice -P
+      - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Build $(cd ~/rom/out/target/product/juice/ && ls *.zip) Uploaded Successfully!"
       - curl -s https://api.telegram.org/$tokentl/sendMessage -d chat_id=$idtl -d text="Compres ccache"
 #      - ./ziping.sh
       - cd ~/
